@@ -137,3 +137,11 @@ dist
 
 backend/.env
 backend/node_modules/
+
+# Ignore all .env files in any folder
+.env
+**/.env
+
+# Ignore all node_modules folders
+node_modules/
+
