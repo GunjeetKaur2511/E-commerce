@@ -259,6 +259,20 @@ app.post('/api/getcart',fetchUser, async (req,res)=>{
 })
 
 
+// One-time route to fix image URLs
+app.get('/api/fix-images', async (req, res) => {
+  const products = await Product.find({});
+  for (let p of products) {
+    if (p.image.includes('localhost')) {
+      p.image = p.image.replace('http://localhost:4000', 'https://e-commerce-backend-m42q.onrender.com');
+      await p.save();
+    }
+  }
+  res.send("✅ Image URLs updated.");
+});
+
+
+
 app.listen(port,(error) => {
     if (!error) {
         console.log("Server Running on Port "+port)
