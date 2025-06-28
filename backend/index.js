@@ -72,7 +72,7 @@ const Product = mongoose.model("Product", {
     default:true,
   }
 })
-app.post('/addproduct', async (req,res)=>{
+app.post('/api/addproduct', async (req,res)=>{
   let products = await Product.find({});
   let id;
   if(products.length>0)
@@ -103,7 +103,7 @@ app.post('/addproduct', async (req,res)=>{
 
 
 // Creating API For deleting Products
-app.post('/removeproduct', async (req,res)=>{
+app.post('/api/removeproduct', async (req,res)=>{
   await Product.findOneAndDelete({id:req.body.id});
   console.log("Removed");
   res.json({
@@ -114,7 +114,7 @@ app.post('/removeproduct', async (req,res)=>{
 
 
 //Creating API for getting all products
-app.get('/allproducts', async (req,res)=>{
+app.get('/api/allproducts', async (req,res)=>{
   let products = await Product.find({});
   console.log("All Products Fetched")
   res.send(products);
@@ -144,7 +144,7 @@ const Users = mongoose.model('Users',{
 
 
 //Creating Endpoint for registering the user
-app.post('/signup',async (req,res)=>{
+app.post('/api/signup',async (req,res)=>{
   let check = await Users.findOne({email:req.body.email});
   if(check){
     return res.status(400).json({success:false,errors:"existing user found with same email address"})
@@ -171,7 +171,7 @@ app.post('/signup',async (req,res)=>{
 
 
 //creating endpoint for user login
-app.post('/login', async (req,res)=>{
+app.post('/api/login', async (req,res)=>{
   let user = await Users.findOne({email:req.body.email});
   if(user){
     const passCompare = req.body.password === user.password;
@@ -195,7 +195,7 @@ app.post('/login', async (req,res)=>{
 
 
 //creating endpoint for newcollection data
-app.get('/newcollections',async (req,res)=>{
+app.get('/api/newcollections',async (req,res)=>{
   let products = await Product.find({});
   let newcollection = products.slice(1).slice(-8);
   console.log("NewCollection Fetched");
@@ -204,7 +204,7 @@ app.get('/newcollections',async (req,res)=>{
 
 
 //creating endpoint for popular in women section
-app.get('/popularinwomen',async (req,res)=>{
+app.get('/api/popularinwomen',async (req,res)=>{
   let products = await Product.find({category:"women"})
   let popular_in_women = products.slice(0,4);
   console.log("Popular in women fetched");
@@ -231,7 +231,7 @@ const fetchUser = async (req,res,next)=>{
 
 
 //creating endpoint for adding products in cartdata
-app.post('/addtocart', fetchUser, async (req, res) => {
+app.post('/api/addtocart', fetchUser, async (req, res) => {
   console.log("added", req.body.itemId);
   let userData = await Users.findOne({_id:req.user.id});
   userData.cartData[req.body.itemId] += 1;
@@ -241,7 +241,7 @@ app.post('/addtocart', fetchUser, async (req, res) => {
 
 
 //creating endpoint to remove product from cartdata
-app.post('/removefromcart', fetchUser, async (req,res)=>{
+app.post('/api/removefromcart', fetchUser, async (req,res)=>{
   console.log("removed", req.body.itemId);
   let userData = await Users.findOne({_id:req.user.id});
   if(userData.cartData[req.body.itemId]>0)
@@ -252,7 +252,7 @@ app.post('/removefromcart', fetchUser, async (req,res)=>{
 
 
 //creating endpoint to get cartdata
-app.post('/getcart',fetchUser, async (req,res)=>{
+app.post('/api/getcart',fetchUser, async (req,res)=>{
   console.log("Getcart");
   let userData = await Users.findOne({_id:req.user.id});
   res.json(userData.cartData);
