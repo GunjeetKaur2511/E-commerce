@@ -18,7 +18,7 @@ const LoginSignup = () => {
     console.log("Login function exe",formData);
     console.log("signup func exe",formData);
     let responseData;
-    await fetch('http://localhost:4000/login',{
+    await fetch(`${process.env.REACT_APP_API_URL}/api/login`,{
       method:'POST',
       headers:{
         Accept:'application/form-data',
@@ -41,7 +41,7 @@ const LoginSignup = () => {
   const signup = async ()=>{
     console.log("signup func exe",formData);
     let responseData;
-    await fetch('http://localhost:4000/signup',{
+    await fetch(`${process.env.REACT_APP_API_URL}/api/signup`,{
       method:'POST',
       headers:{
         Accept:'application/form-data',
