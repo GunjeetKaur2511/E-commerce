@@ -7,7 +7,7 @@ const ListProduct = () => {
   const [allproducts, setAllProducts] = useState([]);
 
   const fetchInfo = async ()=>{
-    await fetch(`${process.env.REACT_APP_API_URL}/api/addproduct`)
+    await fetch(`${process.env.REACT_APP_API_URL}/api/allproducts`)
     .then((res)=>res.json())
     .then((data)=>{setAllProducts(data)});
   }
