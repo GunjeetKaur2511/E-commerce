@@ -8,7 +8,7 @@ const path = require("path");
 const cors = require('cors');
 
 const corsOptions = {
-  origin: ['https://your-admin.vercel.app'], // Replace with your actual Vercel domain
+  origin: ['https://e-commerce-admin-theta-seven.vercel.app'], // Replace with your actual Vercel domain
   methods: ['GET', 'POST'],
   credentials: true
 };
