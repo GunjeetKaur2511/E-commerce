@@ -5,10 +5,16 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
-const cors = require("cors");
+
+const corsOptions = {
+  origin: ['https://your-admin.vercel.app'], // Replace with your actual Vercel domain
+  methods: ['GET', 'POST'],
+  credentials: true
+};
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
+
 
 // Database connection with MongoDB
 mongoose.connect("mongodb+srv://gunjeetkaur2511:Gunjeet%4025@cluster0.szzcqk1.mongodb.net/e-commerce")
