@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './ListProduct.css'
 import cross_icon from '../../assets/cross_icon.png'
 
+
 const ListProduct = () => {
 
   const [allproducts, setAllProducts] = useState([]);
@@ -13,6 +14,7 @@ const ListProduct = () => {
   }
 
   useEffect(()=>{
+    console.log("ENV API:", import.meta.env.VITE_API_URL);
     fetchInfo();
   },[])
 
@@ -27,6 +29,7 @@ const ListProduct = () => {
     })
     await fetchInfo();
   }
+
 
   return (
     <div className='list-product'>
